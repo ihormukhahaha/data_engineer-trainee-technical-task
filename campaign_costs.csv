@@ -1,0 +1,6 @@
+date,app_id,media_source,campaign,cost_usd,impressions,clicks
+2026-03-01,101,google,cmp_gg,150.0,15000,700
+2026-03-01,101,facebook,cmp_fb_2,100.0,10000,500
+2026-03-02,102,google,cmp_gg,200.0,18000,900
+2026-03-02,104,facebook,cmp_fb_3,120.0,12000,600
+2026-03-02,103,tiktok,cmp_tt_01,80.0,5000,250

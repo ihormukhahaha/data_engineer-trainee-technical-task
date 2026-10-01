@@ -1,0 +1,5 @@
+app_id,app_name,platform,store_id,launched_on
+101,Super Game,ios,com.supergame.ios,2026-01-01
+102,Puzzle Master,android,com.puzzlemaster.android,2026-01-15
+103,Fitness Tracker,ios,com.fitnesstracker.ios,2026-02-01
+104,2048,ios,com.2048.ios,2026-02-14

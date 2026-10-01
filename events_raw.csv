@@ -1,9 +1,0 @@
-event_id,user_id,app_id,event_name,event_time,ingested_at,country,media_source,campaign,revenue_usd,is_test
-0,0,104,install,2026-03-01 10:00:00,2026-03-01 10:05:00,US,facebook,cmp_fb_1,0.0,False
-1,1,101,purchase,2026-03-01 11:00:00,2026-03-01 11:05:00,,google,cmp_gg,9.99,False
-2,1,101,purchase,2026-03-01 12:00:00,2026-03-01 12:05:00,--,facebook,cmp_fb_2,"4,99",False
-2,1,101,purchase,2026-03-01 12:00:00,2026-03-01 12:10:00,--,facebook,cmp_fb_2,5.99,False
-3,2,102,install,2026-03-02 08:00:00,2026-03-02 08:05:00,UA,google,cmp_gg,NULL,False
-3,2,102,install,2026-03-02 09:00:00,2026-03-02 09:05:00,UA,google,cmp_gg,,False
-4,1,104,purchase,2026-03-02 10:00:00,2026-03-02 10:05:00,us,facebook,cmp_fb_3,19.99,False
-5,1,103,purchase,2026-03-02 11:00:00,2026-03-02 11:05:00,FR,facebook,cmp_fb_01,2.99,True

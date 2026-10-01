@@ -1,4 +1,4 @@
-# AI Usage Transparency
+# AI Usage
 
 ## Tools Used
 - Gemini

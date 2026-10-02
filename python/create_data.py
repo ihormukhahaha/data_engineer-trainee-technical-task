@@ -20,7 +20,7 @@ events_data = {
     'country': ['US', '', '--', '--', 'UA', 'UA', 'us', 'FR'],
     'media_source': ['facebook', 'google', 'facebook', 'facebook', 'google', 'google', 'facebook', 'facebook'],
     'campaign': ['cmp_fb_1', 'cmp_gg', 'cmp_fb_2', 'cmp_fb_2', 'cmp_gg', 'cmp_gg', 'cmp_fb_3', 'cmp_fb_01'],
-    'revenue_usd': ['0.0', '9.99', '4,99', '5.99', 'NULL', '', '19.99', '2.99'],
+    'revenue_usd': ['3.0', '9.99', '4,99', '5.99', 'NULL', '', '19.99', '2.99'],
     'is_test': [False, False, False, False, False, False, False, True]
 }
 pd.DataFrame(events_data).to_csv('events_raw.csv', index=False)

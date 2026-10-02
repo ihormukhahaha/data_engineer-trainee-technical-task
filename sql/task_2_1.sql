@@ -1,3 +1,6 @@
+-- to be able to refer to this result as events_cleaned
+CREATE OR REPLACE VIEW events_cleaned AS
+-- temporary table with corrected missing or incorrect data
 WITH cleaned_data AS (
     SELECT
         event_id,

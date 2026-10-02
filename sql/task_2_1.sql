@@ -1,3 +1,5 @@
+-- PostgreSQL
+
 -- to be able to refer to this result as events_cleaned
 CREATE OR REPLACE VIEW events_cleaned AS
 -- temporary table with corrected missing or incorrect data
@@ -54,5 +56,4 @@ SELECT
     campaign,
     revenue_usd
 FROM ranked_by_ingest
--- the latest record with the highest revenue for event_id
 WHERE rn = 1;

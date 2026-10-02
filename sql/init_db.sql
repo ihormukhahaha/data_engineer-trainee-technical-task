@@ -1,6 +1,8 @@
+-- PostgreSQL
+
 -- 1. events_raw
 
-DROP TABLE IF EXISTS events_raw;
+DROP TABLE IF EXISTS events_raw CASCADE;
 
 CREATE TABLE events_raw (
     event_id     VARCHAR(64),
@@ -25,12 +27,14 @@ WITH (FORMAT csv, HEADER true);
 
 -- 2. apps
 
-DROP TABLE IF EXISTS apps;
+DROP TABLE IF EXISTS apps CASCADE;
 
 CREATE TABLE apps (
-    app_id   VARCHAR(64),
-    app_name VARCHAR(128),
-    platform VARCHAR(32)
+    app_id      VARCHAR(64),
+    app_name    VARCHAR(128),
+    platform    VARCHAR(32),
+    store_id    VARCHAR(128),
+    launched_on VARCHAR(32)
 );
 
 COPY apps
@@ -42,15 +46,16 @@ WITH (FORMAT csv, HEADER true);
 
 -- 3. campaign_costs
 
-DROP TABLE IF EXISTS campaign_costs;
+DROP TABLE IF EXISTS campaign_costs CASCADE;
 
 CREATE TABLE campaign_costs (
     date         VARCHAR(32),
     app_id       VARCHAR(64),
-    country      VARCHAR(10),
     media_source VARCHAR(64),
     campaign     VARCHAR(64),
-    cost_usd     VARCHAR(64)
+    cost_usd     VARCHAR(64),
+    impressions  INT,
+    clicks       INT
 );
 
 COPY campaign_costs

@@ -11,3 +11,5 @@
 3. `event_raw.csv` and `campaing` - temporary tables that contain all the necessary data, combined by `date`, `app_id`, `media_source` та `campaing`. I use `COALESCE` in the `SELECT` statement to ensure the presence of all the data used to join the tables.
 
 4. A physical table was created for `clean_events`, similar to how the temporary one was created. This enables operations such as `ON CONFLICT`. Additionally, the `event_id` column was set as the `PRIMARY KEY`. We also added the `events_staging.csv` table, which stores nights or corrected events.
+
+5. Added the three described checks, which should return 0 rows if all three checks pass.

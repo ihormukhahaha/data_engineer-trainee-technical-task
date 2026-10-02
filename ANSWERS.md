@@ -17,3 +17,10 @@ I used `FULL OUTER JOIN` for the join. This ensures that the final table retains
 - If, however, there is revenue without costs, this may be due to organic activity from previous campaigns.
 
 I applied the `NULLIF` function to the divisor to avoid a potential division-by-zero error. If `cost_usd` is zero, the expression will return `NULL` instead of an error.
+
+## Task 2.4
+We will filter the data based on column `ingested_at` rather than `even_time` to correctly capture new rows. Column `even_time` reflects the user-side execution time on the device; filtering by it would cause us to miss, for instance, events with adjusted revenue.
+
+A minimum time interval of, say, 3–7 days can be selected; this should represent the maximum time it takes for delayed events or revenue corrections to arrive.
+• If the window is too short, processing will be faster and cheaper, but delayed data will be missed.
+• If it is too long, all data will be captured, but queries will become slower and more expensive due to the constant re-reading of duplicates.

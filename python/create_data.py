@@ -45,9 +45,27 @@ costs_data = {
     'impressions': [15000, 10000, 18000, 12000, 5000],
     'clicks': [700, 500, 900, 600, 250]
 }
-
 pd.DataFrame(costs_data).to_csv('campaign_costs.csv', index=False)
 
+# events_staging.csv
+events_staging = {
+    'event_id': ['4', '6'],
+    'user_id': ['1', '2'],
+    'app_id': ['104', '101'],
+    'event_name': ['purchase', 'purchase'],
+    'event_time': [
+        '2026-03-02 17:15:00', '2026-03-03 11:00:00'
+    ],
+    'ingested_at': [
+        '2026-03-01 17:20:00', '2026-03-03 11:05:00'
+    ],
+    'country': ['US', 'FR'],
+    'media_source': ['facebook', 'facebook'],
+    'campaign': ['cmp_fb_3', 'cmp_fb_2'],
+    'revenue_usd': ['21.99', '7.99'],
+    'is_test': [False, False]
+}
+pd.DataFrame(events_staging).to_csv('events_staging.csv', index=False)
 
 
 print("csv-files generated")

@@ -61,3 +61,27 @@ CREATE TABLE campaign_costs (
 COPY campaign_costs
 FROM '/Users/macbook/Desktop/work/trainee_junior_data_engineer/campaign_costs.csv'
 WITH (FORMAT csv, HEADER true);
+
+
+-- 4. events_staging
+
+
+DROP TABLE IF EXISTS events_staging CASCADE;
+
+CREATE TABLE events_staging (
+    event_id     VARCHAR(64),
+    user_id      VARCHAR(64),
+    app_id       VARCHAR(64),
+    event_name   VARCHAR(64),
+    event_time   VARCHAR(64),
+    ingested_at  VARCHAR(64),
+    country      VARCHAR(64),
+    media_source VARCHAR(64),
+    campaign     VARCHAR(64),
+    revenue_usd  VARCHAR(64),
+    is_test      VARCHAR(10)
+);
+
+COPY events_staging
+FROM '/Users/macbook/Desktop/work/trainee_junior_data_engineer/events_staging.csv'
+WITH (FORMAT csv, HEADER true);

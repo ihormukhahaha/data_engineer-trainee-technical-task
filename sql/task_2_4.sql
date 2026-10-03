@@ -14,63 +14,7 @@ CREATE TABLE IF NOT EXISTS clean_events (
     revenue_usd  NUMERIC(10, 4)
 );
 
-WITH cleaned_raw AS (
-    SELECT
-        event_id,
-        user_id,
-        app_id,
-        event_name,
-        CAST(event_time AS TIMESTAMPTZ) AS event_time,
-        CAST(ingested_at AS TIMESTAMPTZ) AS ingested_at,
-        CASE 
-            WHEN country IS NULL OR country IN ('', '--') THEN 'XX'
-            ELSE UPPER(country)
-        END AS country,
-        media_source,
-        campaign,
-        CASE 
-            WHEN revenue_usd IS NULL OR revenue_usd IN ('', 'NULL') THEN 0.0
-            ELSE CAST(REPLACE(revenue_usd, ',', '.') AS NUMERIC(10, 4))
-        END AS revenue_usd
-    FROM events_raw
-    WHERE LOWER(COALESCE(is_test, 'false')) NOT IN ('true', '1')
-),
-ranked_by_ingest AS (
-    SELECT
-        *,
-        ROW_NUMBER() OVER (
-            PARTITION BY event_id
-            ORDER BY ingested_at DESC, revenue_usd DESC
-        ) AS rn
-    FROM cleaned_raw
-)
-INSERT INTO clean_events (
-    event_id, user_id, app_id, event_name, event_time,
-    ingested_at, country, media_source, campaign, revenue_usd
-)
-SELECT 
-    event_id, user_id, app_id, event_name, event_time,
-    ingested_at, country, media_source, campaign, revenue_usd
-FROM ranked_by_ingest
-WHERE rn = 1
-ON CONFLICT (event_id) DO NOTHING;
-
-
-
--- insert the corrected data into clean_events
-INSERT INTO clean_events (
-    event_id,
-    user_id,
-    app_id,
-    event_name,
-    event_time,
-    ingested_at,
-    country,
-    media_source,
-    campaign,
-    revenue_usd
-)
--- take the raw data, clean it, and place it into a temporary staged_cleaned` table
+-- incremental loading of new and updated events from events_staging
 WITH staged_cleaned AS (
     SELECT
         event_id,
@@ -91,8 +35,8 @@ WITH staged_cleaned AS (
         END AS revenue_usd
     -- the raw data
     FROM events_staging
-    -- select data for the last 1 year
-    WHERE CAST(ingested_at AS TIMESTAMPTZ) >= NOW() - INTERVAL '1 year'
+    -- select data for the last 7 days
+    WHERE CAST(ingested_at AS TIMESTAMPTZ) >= (SELECT MAX(CAST(ingested_at AS TIMESTAMPTZ)) FROM events_staging) - INTERVAL '7 days'
       AND LOWER(COALESCE(is_test, 'false')) NOT IN ('true', '1')
 ),
 ranked_by_ingest AS (
@@ -104,17 +48,13 @@ ranked_by_ingest AS (
         ) AS rn
     FROM staged_cleaned
 )
+INSERT INTO clean_events (
+    event_id, user_id, app_id, event_name, event_time,
+    ingested_at, country, media_source, campaign, revenue_usd
+)
 SELECT
-    event_id,
-    user_id,
-    app_id,
-    event_name,
-    event_time,
-    ingested_at,
-    country,
-    media_source,
-    campaign,
-    revenue_usd
+    event_id, user_id, app_id, event_name, event_time,
+    ingested_at, country, media_source, campaign, revenue_usd
 FROM ranked_by_ingest
 -- keep only the first (newest and most accurate) row for each event_id
 WHERE rn = 1

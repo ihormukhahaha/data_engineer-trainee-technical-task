@@ -27,3 +27,8 @@ A minimum time interval of, say, 3–7 days can be selected; this should represe
 
 ## Task 3.2
 If the script crashes while writing output, the standard process might result in incomplete or corrupted files. To prevent this, I implemented writing to a temporary, isolated directory using tempfile.TemporaryDirectory() first; if execution completes successfully, we move everything from there to the target directory.
+
+# Task 3.3
+1. We won't be able to convert the data to float if it contains a comma separator or `NULL` values; the program will raise a `ValueError`.
+2. Calculating revenue using both the test data and duplicates will severely skew the analytics.
+3. `str.startswith(day)` is an unreliable filtering method, it will fail if the time format changes or if different time zones are involved.

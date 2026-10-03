@@ -32,3 +32,17 @@ If the script crashes while writing output, the standard process might result in
 1. We won't be able to convert the data to float if it contains a comma separator or `NULL` values; the program will raise a `ValueError`.
 2. Calculating revenue using both the test data and duplicates will severely skew the analytics.
 3. `str.startswith(day)` is an unreliable filtering method, it will fail if the time format changes or if different time zones are involved.
+
+# Task 4.1
+
+
+# Task 4.2
+
+
+# Task 4.3
+
+
+# Task 4.4
+
+
+# Task 4.5

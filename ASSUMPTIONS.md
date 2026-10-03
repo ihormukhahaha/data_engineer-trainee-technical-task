@@ -19,3 +19,5 @@
 1. Let's name the function from this task `cleaner.py` to facilitate the execution of the subsequent task. Before implementing the main tasks, we will validate the input rows, check for column consistency in the retrieved data, and verify the validity of the `event_id`. The function returns a cleaned dataset, a dataset of quarantined rows, and the count of revenue records that could not be parsed (if any constraints are triggered, it may return an empty dataset, but the format of the returned data remains consistent).
 
 2. The input path (`--input`) can be a file or a directory containing files. Date-based filtering (`--since`) applies to valid records. For Parquet partitioning, `event_date` (formatted as YYYY-MM-DD based on `event_time`) is used as the key. Using a temporary directory ensures that the target `clean_events` folder is updated without data corruption in the event of a write failure.
+
+3. We excluded test data, processed all dates in UTC, modified revenue_usd according to the specified conditions, and applied a deduplication algorithm, just like in task_2_1.

@@ -25,7 +25,5 @@ A minimum time interval of, say, 3–7 days can be selected; this should represe
 • If the window is too short, processing will be faster and cheaper, but delayed data will be missed.
 • If it is too long, all data will be captured, but queries will become slower and more expensive due to the constant re-reading of duplicates.
 
-## Task 2.5
-The first two checks will halt the pipeline. Duplicates would violate the PRIMARY KEY constraint, and incorrect revenue data would skew financial metric calculations.
-The third check simply issues a warning; it does not compromise the table structure or break anything internally.
-
+## Task 3.2
+If the script crashes while writing output, the standard process might result in incomplete or corrupted files. To prevent this, I implemented writing to a temporary, isolated directory using tempfile.TemporaryDirectory() first; if execution completes successfully, we move everything from there to the target directory.

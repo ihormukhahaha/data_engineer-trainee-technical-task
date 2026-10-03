@@ -13,3 +13,9 @@
 4. A physical table was created for `clean_events`, similar to how the temporary one was created. This enables operations such as `ON CONFLICT`. Additionally, the `event_id` column was set as the `PRIMARY KEY`. We also added the `events_staging.csv` table, which stores nights or corrected events.
 
 5. Added the three described checks, which should return 0 rows if all three checks pass.
+
+
+## 3. Python
+1. Let's name the function from this task `cleaner.py` to facilitate the execution of the subsequent task. Before implementing the main tasks, we will validate the input rows, check for column consistency in the retrieved data, and verify the validity of the `event_id`. The function returns a cleaned dataset, a dataset of quarantined rows, and the count of revenue records that could not be parsed (if any constraints are triggered, it may return an empty dataset, but the format of the returned data remains consistent).
+
+2. The input path (`--input`) can be a file or a directory containing files. Date-based filtering (`--since`) applies to valid records. For Parquet partitioning, `event_date` (formatted as YYYY-MM-DD based on `event_time`) is used as the key. Using a temporary directory ensures that the target `clean_events` folder is updated without data corruption in the event of a write failure.

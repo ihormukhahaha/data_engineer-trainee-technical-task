@@ -56,3 +56,10 @@ It is worth explaining to the client the distinction between when the data is re
 I would choose to partition the data based on the event_date column. I prefer using the time the event actually occurred on the user's device rather than the obvious alternative—`ingested_date` (the time we received the data). Firstly, the ingestion time can differ significantly from the time the action was performed; unlike event_date, it merely indicates when the vendor processed and transmitted the data to us. Secondly, all reports, revenue figures, and ROAS calculations are based on the event date. Therefore, it is far more convenient for us to have the data partitioned by the event date.
 
 However, this choice will slow down the process of loading new data, as that process filters data based on the ingestion time (`ingested_at`).
+
+# Task 5
+1. I will check the raw data (`events_raw`) for Sunday. If data exists, we proceed. If not, the issue likely lies with the vendor or the application itself.
+2. I will check if the data was quarantined or if it consisted entirely of test records. If so, the problem could be a broken data format or a QA-related issue (e.g., if all records are marked `is_test`).
+3. I will check for Sunday's data after deduplication. If it is missing, the error might have occurred during the deduplication stage or within the SQL query's filtering logic.
+4. I will check for revenue figures in the final table. There might be a join issue, leaving the dashboard with no source data.
+5. I will check the dashboard itself. The problem could stem from the cache or dashboard filters.

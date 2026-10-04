@@ -48,6 +48,11 @@ Simply put, idempotency is the ability to perform an action or operation on data
 An `INSERT … SELECT` operation into a daily table is not idempotent; the command adds new rows each time it runs. One standard way to address this is, for example, to use `DELETE FROM ... WHERE date = 'YYYY-MM-DD'` when adding data for that specific date.
 
 # Task 4.4
+The pipeline ingests the data on Thursday. However, subsequent processing and the determination of the event date are based on the `event_date` column, as the timing of the user's actual action is what matters for further analysis. Consequently, the data for Monday will be updated or adjusted to reflect this record.
 
+It is worth explaining to the client the distinction between when the data is received (`ingested_at`) and when the action actually occurred on the user's device (`event_time`). Sometimes, there can be a significant time lag between these two events. All reports—including those for the Monday in question—are updated automatically, ensuring the most current version is always available.
 
 # Task 4.5
+I would choose to partition the data based on the event_date column. I prefer using the time the event actually occurred on the user's device rather than the obvious alternative—`ingested_date` (the time we received the data). Firstly, the ingestion time can differ significantly from the time the action was performed; unlike event_date, it merely indicates when the vendor processed and transmitted the data to us. Secondly, all reports, revenue figures, and ROAS calculations are based on the event date. Therefore, it is far more convenient for us to have the data partitioned by the event date.
+
+However, this choice will slow down the process of loading new data, as that process filters data based on the ingestion time (`ingested_at`).
